@@ -19,7 +19,7 @@ export type Crag = {
 // Expect 5 days of forecast data, 1 previous day, 1 current day, and 3 future days
 export type Forecast = {
     crag: Crag;
-    weather: Weather[];
+    weather_window: Weather[];
 }
 
 // Success type for /forecast/lat/long/radius endpoint
