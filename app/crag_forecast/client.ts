@@ -4,7 +4,7 @@ import type {
   ForecastResponse,
 } from "./types";
 
-const API_BASE_URL = "http://localhost:4000";
+const API_BASE_URL = "http://cfapi.runforecast.com";
 const MAX_AGE_MS = 15 * 60 * 1000; // 15 minutes
 
 export async function getForecastsByLocation(
