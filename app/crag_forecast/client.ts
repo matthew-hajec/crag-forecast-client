@@ -24,7 +24,7 @@ export async function getForecastsByLocation(
       `${API_BASE_URL}/forecast/${latitude}/${longitude}/${radius}`,
     );
   } catch (error) {
-    return { error: "Network error or request timed out" };
+    return { error: "Network error or request timed out\r\n" + (error instanceof Error ? `: ${error.message}` : "") };
   }
 
   if (!response.ok) {
