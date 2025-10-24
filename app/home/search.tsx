@@ -73,7 +73,7 @@ export default function SearchPage() {
               <span aria-hidden>←</span>
               New search
             </Link>
-            <span className="hidden md:inline">Crag results</span>
+            <span className="hidden md:inline">{isLoading ? "..." : forecasts?.length || 0} results</span>
           </div>
           <div>
             <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
