@@ -11,6 +11,7 @@ export async function getForecastsByLocation(
   latitude: number,
   longitude: number,
   radius: number,
+  timeout: number = 5000,
 ): Promise<ForecastResponse> {
   const cached = getCachedResponse(
     `forecast_${latitude}_${longitude}_${radius}`,
@@ -18,9 +19,14 @@ export async function getForecastsByLocation(
   );
   if (cached) return cached;
 
-  const response = await fetch(
-    `${API_BASE_URL}/forecast/${latitude}/${longitude}/${radius}`,
-  );
+  let response: Response;
+  try {
+    response = await fetch(
+      `${API_BASE_URL}/forecast/${latitude}/${longitude}/${radius}`,
+    );
+  } catch (error) {
+    return { error: "Network error or request timed out" };
+  }
 
   if (!response.ok) {
     try {
