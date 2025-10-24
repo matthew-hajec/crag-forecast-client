@@ -36,29 +36,34 @@ export function Result({ forecast }: { forecast: Forecast }) {
         <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
           5-Day Forecast
         </h4>
-        
+
         {weather_window.map((day, index) => {
           const date = new Date(day.date); // EST timezone
           const today = new Date();
-            // Compare days
-            const isToday = today.toDateString() === date.toDateString();
-          
+          // Compare days
+          const isToday = today.toDateString() === date.toDateString();
+
           return (
-            <div 
-              key={day.date} 
+            <div
+              key={day.date}
               className={`flex items-center justify-between p-3 rounded-md ${
-                isToday 
-                  ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800' 
-                  : 'bg-gray-50 dark:bg-gray-800'
+                isToday
+                  ? "bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800"
+                  : "bg-gray-50 dark:bg-gray-800"
               }`}
             >
               {/* Date */}
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  {isToday ? 'Today' : date.toLocaleDateString('en-US', { weekday: 'short' })}
+                  {isToday
+                    ? "Today"
+                    : date.toLocaleDateString("en-US", { weekday: "short" })}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  {date.toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}
                 </p>
               </div>
 
@@ -75,7 +80,9 @@ export function Result({ forecast }: { forecast: Forecast }) {
                   <span className={getTempColor(day.max_temperature_c)}>
                     {day.max_temperature_c.toFixed(0)}°
                   </span>
-                  <span className="text-gray-400 dark:text-gray-500 mx-1">/</span>
+                  <span className="text-gray-400 dark:text-gray-500 mx-1">
+                    /
+                  </span>
                   <span className={getTempColor(day.min_temperature_c)}>
                     {day.min_temperature_c.toFixed(0)}°
                   </span>
@@ -88,11 +95,13 @@ export function Result({ forecast }: { forecast: Forecast }) {
                   <span className="text-gray-600 dark:text-gray-400">
                     💧 {day.max_humidity_percent}%
                   </span>
-                  <span className={`${
-                    day.max_precipitation_probability > 50 
-                      ? 'text-blue-600 dark:text-blue-400 font-medium' 
-                      : 'text-gray-500 dark:text-gray-500'
-                  }`}>
+                  <span
+                    className={`${
+                      day.max_precipitation_probability > 50
+                        ? "text-blue-600 dark:text-blue-400 font-medium"
+                        : "text-gray-500 dark:text-gray-500"
+                    }`}
+                  >
                     🌧 {day.max_precipitation_probability}%
                   </span>
                 </div>

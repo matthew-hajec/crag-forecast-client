@@ -23,10 +23,14 @@ export function Welcome() {
           </div>
         </header>
         <div className="max-w-[600px] w-full space-y-6 px-4">
-          <Search onSearch={({ latitude, longitude, radius }) => {
-            // Go to /search?latitude=...&longitude=...&radius=...
-            navigate(`/search?latitude=${latitude}&longitude=${longitude}&radius=${radius}`);
-          }}/>
+          <Search
+            onSearch={({ latitude, longitude, radius }) => {
+              // Go to /search?latitude=...&longitude=...&radius=...
+              navigate(
+                `/search?latitude=${latitude}&longitude=${longitude}&radius=${radius}`,
+              );
+            }}
+          />
         </div>
       </div>
     </main>

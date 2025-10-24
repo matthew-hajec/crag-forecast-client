@@ -12,10 +12,10 @@ interface SearchProps {
   maxRadius?: number;
 }
 
-export function Search({ 
-  onSearch, 
-  minRadius = 50, 
-  maxRadius = 1000 
+export function Search({
+  onSearch,
+  minRadius = 50,
+  maxRadius = 1000,
 }: SearchProps) {
   const [latitude, setLatitude] = useState<string>("");
   const [longitude, setLongitude] = useState<string>("");
@@ -56,13 +56,13 @@ export function Search({
       onSearch?.({
         latitude: parseFloat(latitude),
         longitude: parseFloat(longitude),
-        radius
+        radius,
       });
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
     }
   };
@@ -85,10 +85,11 @@ export function Search({
       },
       (error) => {
         let errorMessage = "Unable to get your location";
-        
+
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            errorMessage = "Location access denied. Please enable location permissions.";
+            errorMessage =
+              "Location access denied. Please enable location permissions.";
             break;
           case error.POSITION_UNAVAILABLE:
             errorMessage = "Location information is unavailable.";
@@ -97,15 +98,15 @@ export function Search({
             errorMessage = "Location request timed out.";
             break;
         }
-        
+
         setErrors({ location: errorMessage });
         setIsGettingLocation(false);
       },
       {
         enableHighAccuracy: true,
         timeout: 10000,
-        maximumAge: 60000
-      }
+        maximumAge: 60000,
+      },
     );
   };
 
@@ -114,7 +115,7 @@ export function Search({
       <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
         Search Climbing Areas
       </h2>
-      
+
       <div className="space-y-4">
         {/* Use My Location Button */}
         <div>
@@ -125,17 +126,49 @@ export function Search({
           >
             {isGettingLocation ? (
               <>
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <svg
+                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
                 </svg>
                 Getting Location...
               </>
             ) : (
               <>
-                <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                <svg
+                  className="mr-2 h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
                 </svg>
                 Use My Location
               </>
@@ -154,8 +187,8 @@ export function Search({
 
         {/* Latitude Input */}
         <div>
-          <label 
-            htmlFor="latitude" 
+          <label
+            htmlFor="latitude"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
           >
             Latitude
@@ -169,9 +202,9 @@ export function Search({
             onKeyPress={handleKeyPress}
             placeholder="e.g. 37.7749"
             className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${
-              errors.latitude 
-                ? 'border-red-500 dark:border-red-400' 
-                : 'border-gray-300 dark:border-gray-600'
+              errors.latitude
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
             }`}
           />
           {errors.latitude && (
@@ -183,8 +216,8 @@ export function Search({
 
         {/* Longitude Input */}
         <div>
-          <label 
-            htmlFor="longitude" 
+          <label
+            htmlFor="longitude"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
           >
             Longitude
@@ -198,9 +231,9 @@ export function Search({
             onKeyPress={handleKeyPress}
             placeholder="e.g. -122.4194"
             className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${
-              errors.longitude 
-                ? 'border-red-500 dark:border-red-400' 
-                : 'border-gray-300 dark:border-gray-600'
+              errors.longitude
+                ? "border-red-500 dark:border-red-400"
+                : "border-gray-300 dark:border-gray-600"
             }`}
           />
           {errors.longitude && (
@@ -212,8 +245,8 @@ export function Search({
 
         {/* Radius Slider */}
         <div>
-          <label 
-            htmlFor="radius" 
+          <label
+            htmlFor="radius"
             className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
           >
             Search Radius: {radius} km
@@ -253,7 +286,10 @@ export function Search({
 
         {/* Quick location hint */}
         <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
-          <p>💡 Tip: You can use your browser's location or check coordinates on a map</p>
+          <p>
+            💡 Tip: You can use your browser's location or check coordinates on
+            a map
+          </p>
         </div>
       </div>
     </div>
