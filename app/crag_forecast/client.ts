@@ -11,7 +11,6 @@ export async function getForecastsByLocation(
   latitude: number,
   longitude: number,
   radius: number,
-  timeout: number = 5000,
 ): Promise<ForecastResponse> {
   const cached = getCachedResponse(
     `forecast_${latitude}_${longitude}_${radius}`,
