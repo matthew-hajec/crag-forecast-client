@@ -3,7 +3,6 @@ import type { Forecast } from "~/crag_forecast/types";
 export function Result({ forecast }: { forecast: Forecast }) {
   const { crag, weather_window } = forecast;
 
-  // Helper to get temperature range color
   const getTempColor = (temp: number) => {
     if (temp < 5) return "text-blue-600 dark:text-blue-400";
     if (temp < 15) return "text-cyan-600 dark:text-cyan-400";
@@ -11,7 +10,6 @@ export function Result({ forecast }: { forecast: Forecast }) {
     return "text-orange-600 dark:text-orange-400";
   };
 
-  // Helper to format condition
   const formatCondition = (condition: string) => {
     return condition.charAt(0).toUpperCase() + condition.slice(1);
   };
@@ -37,11 +35,18 @@ export function Result({ forecast }: { forecast: Forecast }) {
           5-Day Forecast
         </h4>
 
-        {weather_window.map((day, index) => {
-          const date = new Date(day.date); // EST timezone
-          const today = new Date();
-          // Compare days
-          const isToday = today.toDateString() === date.toDateString();
+        {weather_window.map((day) => {
+          // Date logic is centered on the crag's perspective, so "Today" could be different than the user's local date.
+          // 1. Determine if this forecast day is "today" relative to the crag's timezone.
+          const now = new Date();
+          const iana_timezone = day.timezone;
+          const formatter = new Intl.DateTimeFormat("en-CA", { timeZone: iana_timezone });
+          const isToday = formatter.format(now) === day.date;
+
+          // 2. Create a reliable Date object for display purposes.
+          // Appending 'T00:00:00' ensures the date string is parsed in the user's
+          // local timezone, preventing off-by-one-day errors from UTC conversion.
+          const displayDate = new Date(`${day.date}T00:00:00`);
 
           return (
             <div
@@ -57,10 +62,10 @@ export function Result({ forecast }: { forecast: Forecast }) {
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
                   {isToday
                     ? "Today"
-                    : date.toLocaleDateString("en-US", { weekday: "short" })}
+                    : displayDate.toLocaleDateString("en-US", { weekday: "short" })}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  {date.toLocaleDateString("en-US", {
+                  {displayDate.toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
                   })}
@@ -80,9 +85,7 @@ export function Result({ forecast }: { forecast: Forecast }) {
                   <span className={getTempColor(day.max_temperature_c)}>
                     {day.max_temperature_c.toFixed(0)}°
                   </span>
-                  <span className="text-gray-400 dark:text-gray-500 mx-1">
-                    /
-                  </span>
+                  <span className="text-gray-400 dark:text-gray-500 mx-1">/</span>
                   <span className={getTempColor(day.min_temperature_c)}>
                     {day.min_temperature_c.toFixed(0)}°
                   </span>
