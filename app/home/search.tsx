@@ -5,6 +5,12 @@ import { Result } from "~/components/result";
 import type { SuccessForecastResponse } from "~/crag_forecast/types";
 import ResultWireframe from "~/components/result_wireframe";
 
+type SearchParams = {
+  latitude: number;
+  longitude: number;
+  radius: number;
+};
+
 export default function SearchPage() {
   const [page, setPage] = useState(1);
   const [forecasts, setForecasts] = useState<SuccessForecastResponse | null>(
@@ -38,11 +44,7 @@ export default function SearchPage() {
     initialSearch({ latitude: lat, longitude: lng, radius: rad });
   }, [searchParams]);
 
-  const initialSearch = async (params: {
-    latitude: number;
-    longitude: number;
-    radius: number;
-  }) => {
+  const initialSearch = async (params: SearchParams) => {
     setForecasts(null);
     setError(null);
     setIsLoading(true);
@@ -62,6 +64,30 @@ export default function SearchPage() {
     }
     setIsLoading(false);
   };
+
+  const loadMore = async(params: SearchParams) => {
+    if (!forecasts) return;
+
+    setPage((prev) => prev + 1);
+    const nextPage = page + 1;
+
+    const data = await getForecastsByLocation(
+      params.latitude,
+      params.longitude,
+      params.radius,
+      nextPage,
+      6,
+    );
+
+    if (Array.isArray(data)) {
+      setForecasts((prev) => (prev ? [...prev, ...data] : data));
+    } else {
+      setError(data.error);
+    }
+    setIsLoading(false);
+  };
+
+  const canLoadMore = forecasts ? forecasts.length > 0 : false;
 
   const placeholders = useMemo(() => Array.from({ length: 6 }), []);
 
