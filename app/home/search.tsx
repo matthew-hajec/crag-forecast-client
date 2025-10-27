@@ -12,12 +12,15 @@ type SearchParams = {
 };
 
 export default function SearchPage() {
+  const maxPage = 3;
+
   const [page, setPage] = useState(1);
   const [forecasts, setForecasts] = useState<SuccessForecastResponse | null>(
     null,
   );
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -68,7 +71,7 @@ export default function SearchPage() {
   const loadMore = async(params: SearchParams) => {
     if (!forecasts) return;
 
-    setPage((prev) => prev + 1);
+    setIsLoadingMore(true);
     const nextPage = page + 1;
 
     const data = await getForecastsByLocation(
@@ -81,13 +84,14 @@ export default function SearchPage() {
 
     if (Array.isArray(data)) {
       setForecasts((prev) => (prev ? [...prev, ...data] : data));
+      setPage(nextPage);
     } else {
       setError(data.error);
     }
-    setIsLoading(false);
+    setIsLoadingMore(false);
   };
 
-  const canLoadMore = forecasts ? forecasts.length > 0 : false;
+  const canLoadMore = forecasts && forecasts.length > 0 && page < maxPage;
 
   const placeholders = useMemo(() => Array.from({ length: 6 }), []);
 
@@ -147,6 +151,22 @@ export default function SearchPage() {
             ))}
           </section>
         ) : null}
+
+        <div className="flex w-full items-center justify-center">
+          {canLoadMore && (
+            <button
+              onClick={() => loadMore({
+                latitude: parseFloat(searchParams.get("latitude") || "0"),
+                longitude: parseFloat(searchParams.get("longitude") || "0"),
+                radius: parseInt(searchParams.get("radius") || "0", 10),
+              })}
+              disabled={isLoadingMore}
+              className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-800 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-400 hover:text-blue-600 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:text-slate-100 dark:hover:border-blue-500"
+            >
+              {isLoadingMore ? "Loading..." : "Load more"}
+            </button>
+          )}
+        </div>
       </div>
     </main>
   );
