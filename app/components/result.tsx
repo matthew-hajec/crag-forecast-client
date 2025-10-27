@@ -40,7 +40,9 @@ export function Result({ forecast }: { forecast: Forecast }) {
           // 1. Determine if this forecast day is "today" relative to the crag's timezone.
           const now = new Date();
           const iana_timezone = day.timezone;
-          const formatter = new Intl.DateTimeFormat("en-CA", { timeZone: iana_timezone });
+          const formatter = new Intl.DateTimeFormat("en-CA", {
+            timeZone: iana_timezone,
+          });
           const isToday = formatter.format(now) === day.date;
 
           // 2. Create a reliable Date object for display purposes.
@@ -62,7 +64,9 @@ export function Result({ forecast }: { forecast: Forecast }) {
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
                   {isToday
                     ? "Today"
-                    : displayDate.toLocaleDateString("en-US", { weekday: "short" })}
+                    : displayDate.toLocaleDateString("en-US", {
+                        weekday: "short",
+                      })}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   {displayDate.toLocaleDateString("en-US", {
@@ -85,7 +89,9 @@ export function Result({ forecast }: { forecast: Forecast }) {
                   <span className={getTempColor(day.max_temperature_c)}>
                     {day.max_temperature_c.toFixed(0)}°
                   </span>
-                  <span className="text-gray-400 dark:text-gray-500 mx-1">/</span>
+                  <span className="text-gray-400 dark:text-gray-500 mx-1">
+                    /
+                  </span>
                   <span className={getTempColor(day.min_temperature_c)}>
                     {day.min_temperature_c.toFixed(0)}°
                   </span>
