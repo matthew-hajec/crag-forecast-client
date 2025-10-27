@@ -50,6 +50,8 @@ export default function SearchPage() {
       params.latitude,
       params.longitude,
       params.radius,
+      1,
+      6, // Load 6 results per "page"
     );
 
     if (Array.isArray(data)) {
