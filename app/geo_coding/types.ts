@@ -1,4 +1,4 @@
-type GeocodeSuccessResult = {
+export type GeocodeSuccessResult = {
   latitude: number;
   longitude: number;
   city: string;
@@ -7,12 +7,12 @@ type GeocodeSuccessResult = {
   matchConfidence: number; // Value between 0 and 1
 };
 
-type GeocodeErrorResult = {
+export type GeocodeErrorResult = {
   error: string;
 };
 
-type GeocodeResult = GeocodeSuccessResult | GeocodeErrorResult;
+export type GeocodeResult = GeocodeSuccessResult | GeocodeErrorResult;
 
-interface Geocoder {
+export interface Geocoder {
   geocode(query: string): Promise<GeocodeResult>;
 }
