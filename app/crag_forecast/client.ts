@@ -11,8 +11,8 @@ export async function getForecastsByLocation(
   latitude: number,
   longitude: number,
   radius: number,
-  page: number = 1,
-  resultsPerPage: number = 5,
+  page: number,
+  resultsPerPage: number,
 ): Promise<ForecastResponse> {
   const cached = getCachedResponse(
     `forecast_${latitude}_${longitude}_${radius}_${page}_${resultsPerPage}`,
