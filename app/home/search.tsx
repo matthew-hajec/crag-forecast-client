@@ -6,6 +6,7 @@ import type { SuccessForecastResponse } from "~/crag_forecast/types";
 import ResultWireframe from "~/components/result_wireframe";
 
 export default function SearchPage() {
+  const [page, setPage] = useState(1);
   const [forecasts, setForecasts] = useState<SuccessForecastResponse | null>(
     null,
   );
@@ -34,10 +35,10 @@ export default function SearchPage() {
       return;
     }
 
-    handleSearch({ latitude: lat, longitude: lng, radius: rad });
+    initialSearch({ latitude: lat, longitude: lng, radius: rad });
   }, [searchParams]);
 
-  const handleSearch = async (params: {
+  const initialSearch = async (params: {
     latitude: number;
     longitude: number;
     radius: number;
@@ -50,7 +51,7 @@ export default function SearchPage() {
       params.latitude,
       params.longitude,
       params.radius,
-      1,
+      page,
       6, // Load 6 results per "page"
     );
 
