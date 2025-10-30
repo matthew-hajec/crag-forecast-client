@@ -69,7 +69,7 @@ export default function SearchPage() {
     setIsLoading(false);
   };
 
-  const loadMore = async(params: SearchParams) => {
+  const loadMore = async (params: SearchParams) => {
     if (!forecasts) return;
 
     setIsLoadingMore(true);
@@ -115,7 +115,8 @@ export default function SearchPage() {
               Climbing forecasts
             </h1>
             <p className="mt-2 max-w-2xl text-sm text-gray-600 dark:text-slate-400">
-              We analyse humidity, temperature, and rain probability for each crag in your radius.
+              We analyse humidity, temperature, and rain probability for each
+              crag in your radius.
             </p>
           </div>
         </header>
@@ -134,7 +135,8 @@ export default function SearchPage() {
             <h2 className="text-lg font-semibold">Something went wrong</h2>
             <p className="mt-2">{error}</p>
             <p className="mt-4 text-xs text-red-600/80 dark:text-red-300/80">
-              Double-check the latitude, longitude, and radius parameters or try a different search.
+              Double-check the latitude, longitude, and radius parameters or try
+              a different search.
             </p>
           </section>
         ) : null}
@@ -143,34 +145,45 @@ export default function SearchPage() {
         {!isLoading && !error && forecasts && forecasts.length === 0 ? (
           <section className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm text-amber-900 shadow-sm dark:border-amber-700/70 dark:bg-amber-900/20 dark:text-amber-100">
             <h2 className="text-lg font-semibold">No crags in range</h2>
-            <p className="mt-2">Try increasing your radius or exploring another location.</p>
+            <p className="mt-2">
+              Try increasing your radius or exploring another location.
+            </p>
           </section>
         ) : null}
 
         {/* We've loaded results */}
         {!isLoading && !error && forecasts ? (
-          <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {forecasts.map((forecast) => (
-              <Result key={forecast.crag.id} forecast={forecast} isCelsius={isCelsius} />
-            ))}
-          </section>
+          <>
+            <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {forecasts.map((forecast) => (
+                <Result
+                  key={forecast.crag.id}
+                  forecast={forecast}
+                  isCelsius={isCelsius}
+                />
+              ))}
+            </section>
+            <div className="flex w-full items-center justify-center">
+              {canLoadMore && (
+                <button
+                  onClick={() =>
+                    loadMore({
+                      latitude: parseFloat(searchParams.get("latitude") || "0"),
+                      longitude: parseFloat(
+                        searchParams.get("longitude") || "0",
+                      ),
+                      radius: parseInt(searchParams.get("radius") || "0", 10),
+                    })
+                  }
+                  disabled={isLoadingMore}
+                  className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-800 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-400 hover:text-blue-600 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:text-slate-100 dark:hover:border-blue-500"
+                >
+                  {isLoadingMore ? "Loading..." : "Load more"}
+                </button>
+              )}
+            </div>
+          </>
         ) : null}
-
-        <div className="flex w-full items-center justify-center">
-          {canLoadMore && (
-            <button
-              onClick={() => loadMore({
-                latitude: parseFloat(searchParams.get("latitude") || "0"),
-                longitude: parseFloat(searchParams.get("longitude") || "0"),
-                radius: parseInt(searchParams.get("radius") || "0", 10),
-              })}
-              disabled={isLoadingMore}
-              className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-800 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-400 hover:text-blue-600 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:text-slate-100 dark:hover:border-blue-500"
-            >
-              {isLoadingMore ? "Loading..." : "Load more"}
-            </button>
-          )}
-        </div>
       </div>
     </main>
   );

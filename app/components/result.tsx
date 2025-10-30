@@ -19,10 +19,13 @@ export function Result({ forecast, isCelsius }: Props) {
     return condition.charAt(0).toUpperCase() + condition.slice(1);
   };
 
-  const formatTemperature = (tempC: number, withUnit: boolean=false): string => {
+  const formatTemperature = (
+    tempC: number,
+    withUnit: boolean = false,
+  ): string => {
     const temp = isCelsius
       ? `${tempC.toFixed(0)}°`
-      : `${(tempC * 9/5 + 32).toFixed(0)}°`;
+      : `${((tempC * 9) / 5 + 32).toFixed(0)}°`;
 
     const unit = withUnit ? (isCelsius ? "C" : "F") : "";
     return temp + unit;
