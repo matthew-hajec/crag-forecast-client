@@ -42,7 +42,6 @@ export async function getForecastsByLocation(
     }
   }
   const data: SuccessForecastResponse = await response.json();
-  console.log(data);
   cacheResponse(`forecast_${latitude}_${longitude}_${radius}`, data);
   return data;
 }
