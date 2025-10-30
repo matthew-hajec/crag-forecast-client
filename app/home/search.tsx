@@ -22,6 +22,7 @@ export default function SearchPage() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
+  const [isCelsius, setIsCelsius] = useState<boolean>(false);
 
   useEffect(() => {
     const latitude = searchParams.get("latitude");
@@ -127,6 +128,7 @@ export default function SearchPage() {
           </section>
         ) : null}
 
+        {/* We've encountered an error */}
         {!isLoading && error ? (
           <section className="rounded-2xl border border-red-200 bg-red-50 p-6 text-sm text-red-800 shadow-sm dark:border-red-800/60 dark:bg-red-950/30 dark:text-red-200">
             <h2 className="text-lg font-semibold">Something went wrong</h2>
@@ -137,6 +139,7 @@ export default function SearchPage() {
           </section>
         ) : null}
 
+        {/* We've loaded zero results */}
         {!isLoading && !error && forecasts && forecasts.length === 0 ? (
           <section className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-sm text-amber-900 shadow-sm dark:border-amber-700/70 dark:bg-amber-900/20 dark:text-amber-100">
             <h2 className="text-lg font-semibold">No crags in range</h2>
@@ -144,10 +147,11 @@ export default function SearchPage() {
           </section>
         ) : null}
 
+        {/* We've loaded results */}
         {!isLoading && !error && forecasts ? (
           <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {forecasts.map((forecast) => (
-              <Result key={forecast.crag.id} forecast={forecast} />
+              <Result key={forecast.crag.id} forecast={forecast} isCelsius={isCelsius} />
             ))}
           </section>
         ) : null}

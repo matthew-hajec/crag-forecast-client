@@ -1,6 +1,11 @@
 import type { Forecast } from "~/crag_forecast/types";
 
-export function Result({ forecast }: { forecast: Forecast }) {
+type Props = {
+  forecast: Forecast;
+  isCelsius: boolean;
+};
+
+export function Result({ forecast, isCelsius }: Props) {
   const { crag, weather_window } = forecast;
 
   const getTempColor = (temp: number) => {
@@ -12,6 +17,15 @@ export function Result({ forecast }: { forecast: Forecast }) {
 
   const formatCondition = (condition: string) => {
     return condition.charAt(0).toUpperCase() + condition.slice(1);
+  };
+
+  const formatTemperature = (tempC: number, withUnit: boolean=false): string => {
+    const temp = isCelsius
+      ? `${tempC.toFixed(0)}°`
+      : `${(tempC * 9/5 + 32).toFixed(0)}°`;
+
+    const unit = withUnit ? (isCelsius ? "C" : "F") : "";
+    return temp + unit;
   };
 
   return (
@@ -87,13 +101,13 @@ export function Result({ forecast }: { forecast: Forecast }) {
               <div className="flex-1 text-right px-2">
                 <p className="text-sm font-semibold">
                   <span className={getTempColor(day.max_temperature_c)}>
-                    {day.max_temperature_c.toFixed(0)}°
+                    {formatTemperature(day.max_temperature_c)}
                   </span>
                   <span className="text-gray-400 dark:text-gray-500 mx-1">
                     /
                   </span>
                   <span className={getTempColor(day.min_temperature_c)}>
-                    {day.min_temperature_c.toFixed(0)}°
+                    {formatTemperature(day.min_temperature_c)}
                   </span>
                 </p>
               </div>
