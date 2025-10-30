@@ -4,6 +4,7 @@ import { getForecastsByLocation } from "~/crag_forecast/client";
 import { Result } from "~/components/result";
 import type { SuccessForecastResponse } from "~/crag_forecast/types";
 import ResultWireframe from "~/components/result_wireframe";
+import { Toggle } from "~/components/toggle";
 
 type SearchParams = {
   latitude: number;
@@ -100,7 +101,7 @@ export default function SearchPage() {
     <main className="min-h-screen bg-slate-50/60 py-12 dark:bg-gray-950">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4">
         <header className="flex flex-col gap-3 text-gray-900 dark:text-slate-100">
-          <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-slate-400">
+          <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-slate-400 mb-4 flex justify-between">
             <Link
               to="/"
               className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 transition hover:-translate-y-0.5 hover:border-blue-400 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-blue-500"
@@ -108,7 +109,12 @@ export default function SearchPage() {
               <span aria-hidden>←</span>
               New search
             </Link>
-            <span className="hidden md:inline">Results</span>
+            <Toggle
+              enabled={isCelsius}
+              rightOption="Use Celsius"
+              rightColor="text-gray-500 dark:text-slate-400"
+              onToggle={(enabled) => setIsCelsius(enabled)}
+            />
           </div>
           <div>
             <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
