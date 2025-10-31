@@ -12,7 +12,7 @@ type SearchParams = {
   radius: number;
 };
 
-export default function SearchPage() {
+export function SearchPage() {
   const maxPage = 3;
 
   const [page, setPage] = useState(1);
