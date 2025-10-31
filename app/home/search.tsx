@@ -166,6 +166,8 @@ export default function SearchPage() {
                   key={forecast.crag.id}
                   forecast={forecast}
                   isCelsius={isCelsius}
+                  orginLatitude={parseFloat(searchParams.get("latitude") || "0")}
+                  orginLongitude={parseFloat(searchParams.get("longitude") || "0")}
                 />
               ))}
             </section>

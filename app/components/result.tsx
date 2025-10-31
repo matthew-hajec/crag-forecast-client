@@ -1,11 +1,14 @@
 import type { Forecast } from "~/crag_forecast/types";
+import { haversine } from "~/haversine";
 
 type Props = {
   forecast: Forecast;
   isCelsius: boolean;
+  orginLatitude: number;
+  orginLongitude: number;
 };
 
-export function Result({ forecast, isCelsius }: Props) {
+export function Result({ forecast, isCelsius, orginLatitude, orginLongitude }: Props) {
   const { crag, weather_window } = forecast;
 
   const getTempColor = (temp: number) => {
@@ -31,6 +34,8 @@ export function Result({ forecast, isCelsius }: Props) {
     return temp + unit;
   };
 
+  const distance = haversine(crag.latitude, crag.longitude, orginLatitude, orginLongitude);
+
   return (
     <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-xl transition-shadow duration-200">
       {/* Crag Header */}
@@ -42,7 +47,7 @@ export function Result({ forecast, isCelsius }: Props) {
           {crag.region}, {crag.country}
         </p>
         <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-          📍 {crag.latitude.toFixed(3)}°, {crag.longitude.toFixed(3)}°
+          📍 {crag.latitude.toFixed(3)}°, {crag.longitude.toFixed(3)}° ({distance.toFixed(1)} km)
         </p>
       </div>
 

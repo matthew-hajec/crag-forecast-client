@@ -4,7 +4,7 @@ import type {
   ForecastResponse,
 } from "./types";
 
-const API_BASE_URL = "https://api.cragforecast.com";
+const API_BASE_URL = "http://localhost:4000";
 const MAX_AGE_MS = 30 * 60 * 1000; // 30 minutes
 
 export async function getForecastsByLocation(
