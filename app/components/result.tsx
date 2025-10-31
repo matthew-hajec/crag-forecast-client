@@ -1,5 +1,6 @@
 import type { Forecast } from "~/crag_forecast/types";
 import { haversine } from "~/haversine";
+import { createGoogleMapsLink } from "~/google_maps";
 
 type Props = {
   forecast: Forecast;
@@ -40,6 +41,7 @@ export function Result({ forecast, isCelsius, orginLatitude, orginLongitude }: P
     <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-xl transition-shadow duration-200">
       {/* Crag Header */}
       <div className="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700">
+        <a href={createGoogleMapsLink(crag.latitude, crag.longitude)} target="_blank" rel="noopener noreferrer">
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
           {crag.name}
         </h3>
@@ -49,6 +51,7 @@ export function Result({ forecast, isCelsius, orginLatitude, orginLongitude }: P
         <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
           📍 {crag.latitude.toFixed(3)}°, {crag.longitude.toFixed(3)}° ({distance.toFixed(1)} km)
         </p>
+        </a>
       </div>
 
       {/* Weather Forecast */}
