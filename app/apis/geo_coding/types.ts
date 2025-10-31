@@ -16,3 +16,7 @@ export type GeocodeResult = GeocodeSuccessResult | GeocodeErrorResult;
 export interface Geocoder {
   geocode(query: string): Promise<GeocodeResult>;
 }
+
+export interface ReverseGeocoder {
+  reverseGeocode(latitude: number, longitude: number): Promise<GeocodeResult>;
+}
