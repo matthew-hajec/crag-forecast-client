@@ -24,6 +24,7 @@ export function SearchPage() {
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
   const [isCelsius, setIsCelsius] = useState<boolean>(false);
+  const [isMetric, setIsMetric] = useState<boolean>(false);
 
   useEffect(() => {
     const latitude = searchParams.get("latitude");
@@ -109,12 +110,21 @@ export function SearchPage() {
               <span aria-hidden>←</span>
               New search
             </Link>
+            <div>
             <Toggle
+              className="mr-4"
               enabled={isCelsius}
               rightOption="Use Celsius"
               rightColor="text-gray-500 dark:text-slate-400"
               onToggle={(enabled) => setIsCelsius(enabled)}
             />
+            <Toggle
+              enabled={isMetric}
+              rightOption="Use Metric"
+              rightColor="text-gray-500 dark:text-slate-400"
+              onToggle={(enabled) => setIsMetric(enabled)}
+            />
+            </div>
           </div>
           <div>
             <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
@@ -166,6 +176,7 @@ export function SearchPage() {
                   key={forecast.crag.id}
                   forecast={forecast}
                   isCelsius={isCelsius}
+                  isMetric={isMetric}
                   orginLatitude={parseFloat(searchParams.get("latitude") || "0")}
                   orginLongitude={parseFloat(searchParams.get("longitude") || "0")}
                 />

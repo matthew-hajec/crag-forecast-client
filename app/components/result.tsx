@@ -7,11 +7,12 @@ import { formatTemperature } from "./units/temperature";
 type Props = {
   forecast: Forecast;
   isCelsius: boolean;
+  isMetric: boolean;
   orginLatitude: number;
   orginLongitude: number;
 };
 
-export function Result({ forecast, isCelsius, orginLatitude, orginLongitude }: Props) {
+export function Result({ forecast, isCelsius, isMetric, orginLatitude, orginLongitude }: Props) {
   const { crag, weather_window } = forecast;
 
   const getTempColor = (temp: number) => {
@@ -39,7 +40,7 @@ export function Result({ forecast, isCelsius, orginLatitude, orginLongitude }: P
           {crag.region}, {crag.country}
         </p>
         <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-          📍 {crag.latitude.toFixed(3)}°, {crag.longitude.toFixed(3)}° ({distance.toFixed(1)} km)
+          📍 {crag.latitude.toFixed(3)}°, {crag.longitude.toFixed(3)}° ({formatDistance(distance, isMetric, true)} away)
         </p>
         </a>
       </div>
