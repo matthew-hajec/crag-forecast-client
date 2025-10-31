@@ -1,6 +1,8 @@
 import type { Forecast } from "~/crag_forecast/types";
 import { haversine } from "~/haversine";
 import { createGoogleMapsLink } from "~/google_maps";
+import { formatDistance } from "./units/distance";
+import { formatTemperature } from "./units/temperature";
 
 type Props = {
   forecast: Forecast;
@@ -21,18 +23,6 @@ export function Result({ forecast, isCelsius, orginLatitude, orginLongitude }: P
 
   const formatCondition = (condition: string) => {
     return condition.charAt(0).toUpperCase() + condition.slice(1);
-  };
-
-  const formatTemperature = (
-    tempC: number,
-    withUnit: boolean = false,
-  ): string => {
-    const temp = isCelsius
-      ? `${tempC.toFixed(0)}°`
-      : `${((tempC * 9) / 5 + 32).toFixed(0)}°`;
-
-    const unit = withUnit ? (isCelsius ? "C" : "F") : "";
-    return temp + unit;
   };
 
   const distance = haversine(crag.latitude, crag.longitude, orginLatitude, orginLongitude);
@@ -112,13 +102,13 @@ export function Result({ forecast, isCelsius, orginLatitude, orginLongitude }: P
               <div className="flex-1 text-right px-2">
                 <p className="text-sm font-semibold">
                   <span className={getTempColor(day.max_temperature_c)}>
-                    {formatTemperature(day.max_temperature_c)}
+                    {formatTemperature(day.max_temperature_c, isCelsius, false)}
                   </span>
                   <span className="text-gray-400 dark:text-gray-500 mx-1">
                     /
                   </span>
                   <span className={getTempColor(day.min_temperature_c)}>
-                    {formatTemperature(day.min_temperature_c)}
+                    {formatTemperature(day.min_temperature_c, isCelsius, false)}
                   </span>
                 </p>
               </div>
