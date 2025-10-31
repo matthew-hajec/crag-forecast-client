@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
-import { getForecastsByLocation } from "~/crag_forecast/client";
+import { getForecastsByLocation } from "~/apis/crag_forecast/client";
 import { Result } from "~/components/result";
-import type { SuccessForecastResponse } from "~/crag_forecast/types";
+import type { SuccessForecastResponse } from "~/apis/crag_forecast/types";
 import ResultWireframe from "~/components/result_wireframe";
 import { Toggle } from "~/components/toggle";
 

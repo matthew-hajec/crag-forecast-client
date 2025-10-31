@@ -1,4 +1,4 @@
-import type { Forecast } from "~/crag_forecast/types";
+import type { Forecast } from "~/apis/crag_forecast/types";
 import { haversine } from "~/haversine";
 import { createGoogleMapsLink } from "~/google_maps";
 import { formatDistance } from "./units/distance";
