@@ -5,7 +5,8 @@ import type {
 } from "./types";
 
 const API_BASE_URL = "http://localhost:4000";
-const MAX_AGE_MS = 30 * 60 * 1000; // 30 minutes
+const MAX_AGE_MS = 24 * 60 * 60 * 1000; // Cache for 24 hours
+const CACHE_NONCE = "0"; // Change this to invalidate all cache
 
 export async function getForecastsByLocation(
   latitude: number,
@@ -14,8 +15,15 @@ export async function getForecastsByLocation(
   page: number,
   resultsPerPage: number,
 ): Promise<ForecastResponse> {
+  const cacheKeyStr = cacheKey(
+    latitude,
+    longitude,
+    radius,
+    page,
+    resultsPerPage,
+  );
   const cached = getCachedResponse(
-    `forecast_${latitude}_${longitude}_${radius}_${page}_${resultsPerPage}`,
+    cacheKeyStr,
     MAX_AGE_MS,
   );
   if (cached) return cached;
@@ -42,8 +50,19 @@ export async function getForecastsByLocation(
     }
   }
   const data: SuccessForecastResponse = await response.json();
-  cacheResponse(`forecast_${latitude}_${longitude}_${radius}`, data);
+
+  cacheResponse(cacheKeyStr, data);
   return data;
+}
+
+function cacheKey(
+  latitude: number,
+  longitude: number,
+  radius: number,
+  page: number,
+  resultsPerPage: number,
+): string {
+  return `forecast_${latitude}_${longitude}_${radius}_${page}_${resultsPerPage}_v${CACHE_NONCE}`;
 }
 
 function cacheResponse(key: string, data: ForecastResponse) {
