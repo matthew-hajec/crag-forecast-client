@@ -4,7 +4,7 @@ import { getForecastsByLocation } from "~/apis/crag_forecast/client";
 import { Result } from "~/components/result";
 import type { SuccessForecastResponse } from "~/apis/crag_forecast/types";
 import ResultWireframe from "~/components/result_wireframe";
-import { Toggle } from "~/components/toggle";
+import { Toggle } from "~/components/ui/toggle";
 
 type SearchParams = {
   latitude: number;
