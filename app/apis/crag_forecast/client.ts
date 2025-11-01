@@ -3,8 +3,12 @@ import type {
   ErrorForecastResponse,
   ForecastResponse,
 } from "./types";
+import {
+  cachedValue,
+  setCachedValue,
+} from "../client_cache";
 
-const API_BASE_URL = "http://api.cragforecast.com";
+const API_BASE_URL = "http://localhost:4000";
 const MAX_AGE_MS = 24 * 60 * 60 * 1000; // Cache for 24 hours
 const CACHE_NONCE = "0"; // Change this to invalidate all cache
 
@@ -22,10 +26,7 @@ export async function getForecastsByLocation(
     page,
     resultsPerPage,
   );
-  const cached = getCachedResponse(
-    cacheKeyStr,
-    MAX_AGE_MS,
-  );
+  const cached = cachedValue<ForecastResponse>(cacheKeyStr);
   if (cached) return cached;
 
   let response: Response;
@@ -51,7 +52,11 @@ export async function getForecastsByLocation(
   }
   const data: SuccessForecastResponse = await response.json();
 
-  cacheResponse(cacheKeyStr, data);
+  setCachedValue<ForecastResponse>(
+    cacheKeyStr,
+    data,
+    MAX_AGE_MS,
+  );
   return data;
 }
 
