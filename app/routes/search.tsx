@@ -3,8 +3,8 @@ import {SearchPage} from "../pages/search";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "CragFinder | Results" },
-    { name: "description", content: "CragFinder Results Page" },
+    { title: "CragForecast | Results" },
+    { name: "description", content: "CragForecast Results Page" },
   ];
 }
 

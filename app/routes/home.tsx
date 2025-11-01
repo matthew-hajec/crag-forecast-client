@@ -3,8 +3,8 @@ import { Welcome } from "../pages/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "CragFinder | Home" },
-    { name: "description", content: "CragFinder Home" },
+    { title: "CragForecast | Home" },
+    { name: "description", content: "CragForecast Home" },
   ];
 }
 
