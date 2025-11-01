@@ -4,7 +4,7 @@ import type {
   ForecastResponse,
 } from "./types";
 
-const API_BASE_URL = "http://localhost:4000";
+const API_BASE_URL = "http://api.cragforecast.com";
 const MAX_AGE_MS = 24 * 60 * 60 * 1000; // Cache for 24 hours
 const CACHE_NONCE = "0"; // Change this to invalidate all cache
 
