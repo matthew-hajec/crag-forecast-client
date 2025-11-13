@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { getForecastsByLocation } from "~/apis/crag_forecast/client";
-import { Result } from "~/components/result";
+import { Result } from "~/features/Result";
 import type { SuccessForecastResponse } from "~/apis/crag_forecast/types";
-import ResultWireframe from "~/components/result_wireframe";
-import { Toggle } from "~/components/ui/toggle";
+import ResultWireframe from "~/features/ResultWireframe";
+import { Toggle } from "~/components/Toggle";
 
 type SearchParams = {
   latitude: number;

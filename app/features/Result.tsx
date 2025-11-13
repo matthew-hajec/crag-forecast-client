@@ -1,8 +1,8 @@
 import type { Forecast } from "~/apis/crag_forecast/types";
 import { haversine } from "~/haversine";
 import { createGoogleMapsLink } from "~/google_maps";
-import { formatDistance } from "./units/distance";
-import { formatTemperature } from "./units/temperature";
+import { formatDistance } from "../units/distance";
+import { formatTemperature } from "../units/temperature";
 
 type Props = {
   forecast: Forecast;
