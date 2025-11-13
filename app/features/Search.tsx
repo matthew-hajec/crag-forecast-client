@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TextInput from "~/components/TextInput";
 import AutocompleteInput from "~/components/AutocompleteInput";
+import Accordian from "~/components/Accordian";
 
 interface SearchParams {
   latitude: number;
@@ -23,7 +24,7 @@ export default function Search({
 }: SearchProps) {
   const [latitude, setLatitude] = useState<string>("");
   const [longitude, setLongitude] = useState<string>("");
-  const [radius, setRadius] = useState<number>(100);
+  const [radius, setRadius] = useState<number>(500);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isGettingLocation, setIsGettingLocation] = useState<boolean>(false);
 
@@ -87,13 +88,13 @@ export default function Search({
         switch (error.code) {
           case error.PERMISSION_DENIED:
             errorMessage =
-              "Location access denied. Please enable location permissions.";
+              "Location access denied. Try entering your location manually.";
             break;
           case error.POSITION_UNAVAILABLE:
-            errorMessage = "Location information is unavailable.";
+            errorMessage = "Location information unavailable. Try entering your location manually.";
             break;
           case error.TIMEOUT:
-            errorMessage = "Location request timed out.";
+            errorMessage = "Location request timed out. Try entering your location manually.";
             break;
         }
 
@@ -114,9 +115,10 @@ export default function Search({
         Search Climbing Areas
       </h2>
 
-      <div className="space-y-4">
+      <div>
         {/* Autocomplete Input */}
         <AutocompleteInput
+          additionalClasses="mb-4"
           placeholder="Start typing an address or place..."
           onPlaceSelected={(place) => {
             if (place.geometry) {
@@ -128,10 +130,10 @@ export default function Search({
           }}
         />
 
-        <p className="text-center text-sm font-bold">Or</p>
+        <p className="text-center text-sm font-bold mb-4">Or</p>
 
         {/* Use My Location Button */}
-        <div>
+        <div className="mb-4">
           <button
             onClick={handleGetLocation}
             disabled={isGettingLocation}
@@ -187,40 +189,36 @@ export default function Search({
               </>
             )}
           </button>
-        </div>
-
-        {/* Location Error */}
-        {errors.location && (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md p-3">
-            <p className="text-sm text-red-600 dark:text-red-400">
+          {errors.location && (
+            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
               {errors.location}
             </p>
-          </div>
-        )}
+          )}
+        </div>
 
-        <hr className="my-8 border-t border-gray-700 dark:border-gray-200" />
+        <hr className="mb-4"></hr>
 
-        {/* Latitude Input */}
-        <TextInput
-          labelText="Latitude"
-          type="number"
-          value={latitude}
-          onChange={(e) => setLatitude(e.target.value)}
-          placeholder="e.g. 37.7749"
-          error={errors.latitude}
-        />
+        <Accordian title={<span className="text-sm">Advanced Options</span>} additionalClasses="mb-4">
+          {/* Latitude Input */}
+          <TextInput
+            labelText="Latitude"
+            type="number"
+            value={latitude}
+            onChange={(e) => setLatitude(e.target.value)}
+            placeholder="e.g. 37.7749"
+            error={errors.latitude}
+          />
 
 
-        {/* Longitude Input */}
-        <TextInput
-          labelText="Longitude"
-          type="number"
-          value={longitude}
-          onChange={(e) => setLongitude(e.target.value)}
-          placeholder="e.g. -122.4194"
-          error={errors.longitude}
-        />
-
+          {/* Longitude Input */}
+          <TextInput
+            labelText="Longitude"
+            type="number"
+            value={longitude}
+            onChange={(e) => setLongitude(e.target.value)}
+            placeholder="e.g. -122.4194"
+            error={errors.longitude}
+          />
         {/* Radius Slider */}
         <div>
           <label
@@ -253,12 +251,22 @@ export default function Search({
             </p>
           )}
         </div>
+        </Accordian>
+
 
         {/* Search Button */}
         <button
           onClick={handleSearch}
           disabled={!latitude.trim() || !longitude.trim()}
-          className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-medium py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+          className="
+            w-full py-2 px-4 
+            text-white font-medium text-lg
+            bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 
+            disabled:cursor-not-allowed 
+            rounded-md 
+            transition-colors duration-200 
+            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900
+          "
         >
           Search Climbing Areas
         </button>
