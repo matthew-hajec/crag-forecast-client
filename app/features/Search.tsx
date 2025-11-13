@@ -110,14 +110,13 @@ export default function Search({
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+      <h2 className="text-xl text-center font-semibold text-gray-900 dark:text-white mb-4">
         Search Climbing Areas
       </h2>
 
       <div className="space-y-4">
         {/* Autocomplete Input */}
         <AutocompleteInput
-          labelText="Search for a location"
           placeholder="Start typing an address or place..."
           onPlaceSelected={(place) => {
             if (place.geometry) {
@@ -129,7 +128,7 @@ export default function Search({
           }}
         />
 
-        <p className="text-center font-bold">Or</p>
+        <p className="text-center text-sm font-bold">Or</p>
 
         {/* Use My Location Button */}
         <div>
