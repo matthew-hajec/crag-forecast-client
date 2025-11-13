@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TextInput from "~/components/TextInput";
+import AutocompleteInput from "~/components/AutocompleteInput";
 
 interface SearchParams {
   latitude: number;
@@ -114,6 +115,22 @@ export default function Search({
       </h2>
 
       <div className="space-y-4">
+        {/* Autocomplete Input */}
+        <AutocompleteInput
+          labelText="Search for a location"
+          placeholder="Start typing an address or place..."
+          onPlaceSelected={(place) => {
+            if (place.geometry) {
+              const lat = place.geometry.location.lat();
+              const lng = place.geometry.location.lng();
+              setLatitude(lat.toFixed(6));
+              setLongitude(lng.toFixed(6));
+            }
+          }}
+        />
+
+        <p className="text-center font-bold">Or</p>
+
         {/* Use My Location Button */}
         <div>
           <button
@@ -167,7 +184,7 @@ export default function Search({
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                Use My Location
+                Use Location
               </>
             )}
           </button>
