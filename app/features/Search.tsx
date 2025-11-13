@@ -10,12 +10,14 @@ interface SearchProps {
   onSearch?: (params: SearchParams) => void;
   minRadius?: number;
   maxRadius?: number;
+  radiusIncrement?: number;
 }
 
 export default function Search({
   onSearch,
   minRadius = 50,
   maxRadius = 1000,
+  radiusIncrement = 25,
 }: SearchProps) {
   const [latitude, setLatitude] = useState<string>("");
   const [longitude, setLongitude] = useState<string>("");
@@ -252,7 +254,7 @@ export default function Search({
             Search Radius: {radius} km
           </label>
           <div className="flex items-center space-x-3">
-            <span className="text-xs text-gray-500 dark:text-gray-400 min-w-[2rem]">
+            <span className="text-xs text-gray-500 dark:text-gray-400 min-w-12">
               {minRadius}km
             </span>
             <input
@@ -260,11 +262,12 @@ export default function Search({
               type="range"
               min={minRadius}
               max={maxRadius}
+              step={radiusIncrement}
               value={radius}
               onChange={(e) => setRadius(parseInt(e.target.value))}
               className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <span className="text-xs text-gray-500 dark:text-gray-400 min-w-[3rem] text-right">
+            <span className="text-xs text-gray-500 dark:text-gray-400 min-w-12 text-right">
               {maxRadius}km
             </span>
           </div>
