@@ -199,6 +199,8 @@ export default function Search({
           </div>
         )}
 
+        <hr className="my-8 border-t border-gray-700 dark:border-gray-200" />
+
         {/* Latitude Input */}
         <TextInput
           labelText="Latitude"
@@ -261,14 +263,6 @@ export default function Search({
         >
           Search Climbing Areas
         </button>
-
-        {/* Quick location hint */}
-        <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
-          <p>
-            💡 Tip: You can use your browser's location or check coordinates on
-            a map
-          </p>
-        </div>
       </div>
     </div>
   );
