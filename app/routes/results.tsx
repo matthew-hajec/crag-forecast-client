@@ -1,5 +1,5 @@
 import type {Route} from "./+types/home";
-import SearchPage from "../pages/Search";
+import ResultsPage from "../pages/Results";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -8,6 +8,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Search() {
-  return <SearchPage />;
+export default function Results() {
+  return <ResultsPage />;
 }
