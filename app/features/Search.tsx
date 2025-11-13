@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TextInput from "~/components/TextInput";
 
 interface SearchParams {
   latitude: number;
@@ -60,12 +61,6 @@ export default function Search({
         longitude: parseFloat(longitude),
         radius,
       });
-    }
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleSearch();
     }
   };
 
@@ -188,62 +183,25 @@ export default function Search({
         )}
 
         {/* Latitude Input */}
-        <div>
-          <label
-            htmlFor="latitude"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-          >
-            Latitude
-          </label>
-          <input
-            id="latitude"
-            type="number"
-            step="any"
-            value={latitude}
-            onChange={(e) => setLatitude(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="e.g. 37.7749"
-            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${
-              errors.latitude
-                ? "border-red-500 dark:border-red-400"
-                : "border-gray-300 dark:border-gray-600"
-            }`}
-          />
-          {errors.latitude && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-              {errors.latitude}
-            </p>
-          )}
-        </div>
+        <TextInput
+          labelText="Latitude"
+          type="number"
+          value={latitude}
+          onChange={(e) => setLatitude(e.target.value)}
+          placeholder="e.g. 37.7749"
+          error={errors.latitude}
+        />
+
 
         {/* Longitude Input */}
-        <div>
-          <label
-            htmlFor="longitude"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-          >
-            Longitude
-          </label>
-          <input
-            id="longitude"
-            type="number"
-            step="any"
-            value={longitude}
-            onChange={(e) => setLongitude(e.target.value)}
-            onKeyPress={handleKeyPress}
-            placeholder="e.g. -122.4194"
-            className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 ${
-              errors.longitude
-                ? "border-red-500 dark:border-red-400"
-                : "border-gray-300 dark:border-gray-600"
-            }`}
-          />
-          {errors.longitude && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-              {errors.longitude}
-            </p>
-          )}
-        </div>
+        <TextInput
+          labelText="Longitude"
+          type="number"
+          value={longitude}
+          onChange={(e) => setLongitude(e.target.value)}
+          placeholder="e.g. -122.4194"
+          error={errors.longitude}
+        />
 
         {/* Radius Slider */}
         <div>
