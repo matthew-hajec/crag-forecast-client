@@ -12,7 +12,7 @@ type Props = {
   orginLongitude: number;
 };
 
-export function Result({ forecast, isCelsius, isMetric, orginLatitude, orginLongitude }: Props) {
+export default function Result({ forecast, isCelsius, isMetric, orginLatitude, orginLongitude }: Props) {
   const { crag, weather_window } = forecast;
 
   const getTempColor = (temp: number) => {

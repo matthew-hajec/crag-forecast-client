@@ -8,7 +8,7 @@ type Props = {
   rightColor?: string;
 }
 
-export function Toggle({ className, enabled, onToggle, leftOption, rightOption, leftColor, rightColor }: Props) {
+export default function Toggle({ className, enabled, onToggle, leftOption, rightOption, leftColor, rightColor }: Props) {
   return (
     <label className={`inline-flex items-center cursor-pointer select-none ${className}`}>
       <span className={`me-1 ${leftColor || 'text-gray-900 dark:text-gray-300'}`}>{leftOption}</span>

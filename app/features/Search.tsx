@@ -12,7 +12,7 @@ interface SearchProps {
   maxRadius?: number;
 }
 
-export function Search({
+export default function Search({
   onSearch,
   minRadius = 50,
   maxRadius = 1000,

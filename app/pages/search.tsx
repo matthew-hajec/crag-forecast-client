@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { getForecastsByLocation } from "~/apis/crag_forecast/client";
-import { Result } from "~/features/Result";
+import Result from "~/features/Result";
 import type { SuccessForecastResponse } from "~/apis/crag_forecast/types";
 import ResultWireframe from "~/features/ResultWireframe";
-import { Toggle } from "~/components/Toggle";
+import Toggle from "~/components/Toggle";
 
 type SearchParams = {
   latitude: number;
@@ -12,7 +12,7 @@ type SearchParams = {
   radius: number;
 };
 
-export function SearchPage() {
+export default function Search() {
   const maxPage = 3;
 
   const [page, setPage] = useState(1);

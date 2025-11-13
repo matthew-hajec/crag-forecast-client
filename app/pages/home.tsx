@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router";
 import logo from "~/assets/logo.png";
-import { Search } from "~/features/Search";
+import Search from "~/features/Search";
 
-export function Welcome() {
+export default function Home() {
   const navigate = useNavigate();
 
   return (
