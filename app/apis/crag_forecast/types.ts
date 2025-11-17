@@ -1,7 +1,7 @@
 export type Weather = {
   timezone: string; // IANA timezone string
   date: string;
-  wmo_code: number;
+  condition: string;
   max_humidity_percent: number;
   max_precipitation_probability: number;
   max_temperature_c: number;
@@ -23,12 +23,23 @@ export type Forecast = {
   weather_window: Weather[];
 };
 
-// Success type for /forecast/lat/long/radius endpoint
-export type SuccessForecastResponse = Forecast[];
+// Success type for /forecast/... endpoint
+export type APISuccess = {
+  weather_window: {
+    timezone: string;
+    date: string;
+    wmo_code: number;
+    max_humidity_percent: number;
+    max_precipitation_probability: number;
+    max_temperature_c: number;
+    min_temperature_c: number;
+  }[],
+  crag: Crag
+}[];
 
-// Error type for /forecast/lat/long/radius endpoint
-export type ErrorForecastResponse = {
+// Error type for /forecast/... endpoint
+export type APIFailure = {
   error: string;
 };
 
-export type ForecastResponse = SuccessForecastResponse | ErrorForecastResponse;
+export type APIResponse = APISuccess | APIFailure;

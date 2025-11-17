@@ -91,7 +91,7 @@ export default function Result({ forecast, isCelsius, isMetric, orginLatitude, o
               {/* Condition */}
               <div className="flex-1 text-center px-2">
                 <p className="text-xs text-gray-600 dark:text-gray-300 capitalize">
-                  WMO Code: {day.wmo_code}
+                  {day.condition}
                 </p>
               </div>
 

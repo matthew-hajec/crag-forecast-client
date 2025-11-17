@@ -1,16 +1,22 @@
 import type {
-  SuccessForecastResponse,
-  ErrorForecastResponse,
-  ForecastResponse,
+  Weather,
+  Crag,
+  Forecast,
+  APISuccess,
+  APIFailure,
+  APIResponse
 } from "./types";
 import {
   cachedValue,
   setCachedValue,
 } from "../client_cache";
+import { wmoToDescription } from "./wmo";
 
-const API_BASE_URL = "https://api.cragforecast.com";
+const API_BASE_URL = "http://localhost:4000";
 const MAX_AGE_MS = 24 * 60 * 60 * 1000; // Cache for 24 hours
 const CACHE_NONCE = "0"; // Change this to invalidate all cache
+
+type ForecastsOrError = Forecast[] | APIFailure;
 
 export async function getForecastsByLocation(
   latitude: number,
@@ -18,7 +24,7 @@ export async function getForecastsByLocation(
   radius: number,
   page: number,
   resultsPerPage: number,
-): Promise<ForecastResponse> {
+): Promise<ForecastsOrError> {
   const cacheKeyStr = cacheKey(
     latitude,
     longitude,
@@ -26,7 +32,7 @@ export async function getForecastsByLocation(
     page,
     resultsPerPage,
   );
-  const cached = cachedValue<ForecastResponse>(cacheKeyStr);
+  const cached = cachedValue<Forecast[]>(cacheKeyStr);
   if (cached) return cached;
 
   let response: Response;
@@ -44,21 +50,38 @@ export async function getForecastsByLocation(
 
   if (!response.ok) {
     try {
-      const errorData: ErrorForecastResponse = await response.json();
+      const errorData: APIFailure = await response.json();
       return errorData;
     } catch {
       return { error: "An unknown error occurred" };
     }
   }
-  const data: SuccessForecastResponse = await response.json();
+  const data: APISuccess = await response.json();
 
-  setCachedValue<ForecastResponse>(
+  const forecasts = apiResponseToForecasts(data);
+
+  setCachedValue<Forecast[]>(
     cacheKeyStr,
-    data,
+    forecasts,
     MAX_AGE_MS,
   );
-  return data;
+  return forecasts;
 }
+
+function apiResponseToForecasts(
+  apiResponse: APISuccess,
+): Forecast[] {
+  const forecasts: Forecast[] = apiResponse.map((item) => ({
+    crag: item.crag,
+    weather_window: item.weather_window.map((weather) => ({
+      ...weather, 
+      condition: wmoToDescription(weather.wmo_code),
+    })),
+  }));
+
+  return forecasts;
+}
+  
 
 function cacheKey(
   latitude: number,
