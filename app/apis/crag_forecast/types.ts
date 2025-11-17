@@ -1,7 +1,7 @@
 export type Weather = {
   timezone: string; // IANA timezone string
   date: string;
-  condition: string;
+  wmo_code: number;
   max_humidity_percent: number;
   max_precipitation_probability: number;
   max_temperature_c: number;
