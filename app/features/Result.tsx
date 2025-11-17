@@ -22,10 +22,6 @@ export default function Result({ forecast, isCelsius, isMetric, orginLatitude, o
     return "text-orange-600 dark:text-orange-400";
   };
 
-  const formatCondition = (condition: string) => {
-    return condition.charAt(0).toUpperCase() + condition.slice(1);
-  };
-
   const distance = haversine(crag.latitude, crag.longitude, orginLatitude, orginLongitude);
 
   return (
@@ -95,7 +91,7 @@ export default function Result({ forecast, isCelsius, isMetric, orginLatitude, o
               {/* Condition */}
               <div className="flex-1 text-center px-2">
                 <p className="text-xs text-gray-600 dark:text-gray-300 capitalize">
-                  {formatCondition(day.condition)}
+                  WMO Code: {day.wmo_code}
                 </p>
               </div>
 
