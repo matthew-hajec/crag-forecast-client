@@ -69,23 +69,3 @@ function cacheKey(
 ): string {
   return `forecast_${latitude}_${longitude}_${radius}_${page}_${resultsPerPage}_v${CACHE_NONCE}`;
 }
-
-function cacheResponse(key: string, data: ForecastResponse) {
-  const cacheEntry = {
-    timestamp: Date.now(),
-    data,
-  };
-  localStorage.setItem(key, JSON.stringify(cacheEntry));
-}
-
-function getCachedResponse(
-  key: string,
-  maxAgeMs: number,
-): ForecastResponse | null {
-  const cached = localStorage.getItem(key);
-  if (!cached) return null;
-
-  const cacheEntry = JSON.parse(cached);
-  const isExpired = Date.now() - cacheEntry.timestamp > maxAgeMs;
-  return isExpired ? null : cacheEntry.data;
-}
