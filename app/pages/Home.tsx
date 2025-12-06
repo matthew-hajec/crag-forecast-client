@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-import logo from "~/assets/logo.png";
 import Search from "~/features/Search";
 
 export default function Home() {
@@ -9,17 +8,10 @@ export default function Home() {
     <main className="flex items-center justify-center pt-16 pb-4">
       <div className="flex-1 flex flex-col items-center gap-16 min-h-0">
         <header className="flex flex-col items-center gap-9">
-          <div className="w-[500px] max-w-[100vw] p-4">
-            <img
-              src={logo}
-              alt="React Router"
-              className="block w-full dark:hidden"
-            />
-            <img
-              src={logo}
-              alt="React Router"
-              className="hidden w-full dark:block"
-            />
+          <div className="p-4">
+            <h1 className="text-7xl font-extrabold tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 drop-shadow-sm pb-4">
+              CragForecast
+            </h1>
           </div>
         </header>
         <div className="max-w-[600px] w-full space-y-6 px-4">
