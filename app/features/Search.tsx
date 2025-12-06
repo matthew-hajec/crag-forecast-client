@@ -130,7 +130,13 @@ export default function Search({
           }}
         />
 
-        <p className="text-center text-sm font-bold mb-4">Or</p>
+        <div className="relative flex py-2 items-center mb-4">
+          <div className="flex-grow border-t border-gray-100 dark:border-gray-700"></div>
+          <span className="flex-shrink-0 mx-4 text-gray-400 text-sm font-medium">
+            or use local position
+          </span>
+          <div className="flex-grow border-t border-gray-100 dark:border-gray-700"></div>
+        </div>
 
         {/* Use My Location Button */}
         <div className="mb-4">
@@ -219,38 +225,38 @@ export default function Search({
             placeholder="e.g. -122.4194"
             error={errors.longitude}
           />
-        {/* Radius Slider */}
-        <div>
-          <label
-            htmlFor="radius"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-          >
-            Search Radius: {radius} km
-          </label>
-          <div className="flex items-center space-x-3">
-            <span className="text-xs text-gray-500 dark:text-gray-400 min-w-12">
-              {minRadius}km
-            </span>
-            <input
-              id="radius"
-              type="range"
-              min={minRadius}
-              max={maxRadius}
-              step={radiusIncrement}
-              value={radius}
-              onChange={(e) => setRadius(parseInt(e.target.value))}
-              className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <span className="text-xs text-gray-500 dark:text-gray-400 min-w-12 text-right">
-              {maxRadius}km
-            </span>
+          {/* Radius Slider */}
+          <div>
+            <label
+              htmlFor="radius"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >
+              Search Radius: {radius} km
+            </label>
+            <div className="flex items-center space-x-3">
+              <span className="text-xs text-gray-500 dark:text-gray-400 min-w-12">
+                {minRadius}km
+              </span>
+              <input
+                id="radius"
+                type="range"
+                min={minRadius}
+                max={maxRadius}
+                step={radiusIncrement}
+                value={radius}
+                onChange={(e) => setRadius(parseInt(e.target.value))}
+                className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <span className="text-xs text-gray-500 dark:text-gray-400 min-w-12 text-right">
+                {maxRadius}km
+              </span>
+            </div>
+            {errors.radius && (
+              <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                {errors.radius}
+              </p>
+            )}
           </div>
-          {errors.radius && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-400">
-              {errors.radius}
-            </p>
-          )}
-        </div>
         </Accordian>
 
 
