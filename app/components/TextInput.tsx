@@ -8,6 +8,7 @@ type TextInputProps = {
   labelText?: string; // Optional label text
   placeholder?: string; // Placeholder text for the input
   onPressEnter?: (e: React.KeyboardEvent<HTMLInputElement>) => void; // Triggered when Enter key is pressed
+  additionalClasses?: string; // Additional classes for styling
 }
 
 export default function TextInput(props: TextInputProps) {
@@ -27,7 +28,7 @@ export default function TextInput(props: TextInputProps) {
         onChange={props.onChange}
         placeholder={props.placeholder || ""}
         onKeyDown={(e) => {
-          if(e.key === "Enter" && props.onPressEnter) {
+          if (e.key === "Enter" && props.onPressEnter) {
             props.onPressEnter(e)
           }
         }}
@@ -36,6 +37,7 @@ export default function TextInput(props: TextInputProps) {
           border border-gray-300 rounded-md
           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
           ${props.error ? "border-red-500" : ""}
+          ${props.additionalClasses ?? ""}
         `}
       />
       {props.error && (
