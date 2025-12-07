@@ -102,7 +102,13 @@ export default function Results() {
     <main className="min-h-screen bg-slate-50/60 py-12 dark:bg-gray-950">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4">
         <header className="flex flex-col gap-3 text-gray-900 dark:text-slate-100">
-          <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-slate-400 mb-4 justify-between">
+          <div className="
+            flex flex-col items-start sm:flex-row sm:justify-between
+            gap-3 
+            text-sm 
+            text-gray-500 dark:text-slate-400 
+            mb-4 
+          ">
             <Link
               to="/"
               className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 transition hover:-translate-y-0.5 hover:border-blue-400 hover:text-blue-600 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-blue-500"
