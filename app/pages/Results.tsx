@@ -144,7 +144,7 @@ export default function Results() {
         </header>
 
         {isLoading ? (
-          <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <section className="grid gap-6 md:grid-cols-2">
             {placeholders.map((_, index) => (
               <ResultWireframe key={`placeholder-${index}`} />
             ))}
@@ -176,7 +176,7 @@ export default function Results() {
         {/* We've loaded results */}
         {!isLoading && !error && forecasts ? (
           <>
-            <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <section className="grid gap-6 md:grid-cols-2">
               {forecasts.map((forecast) => (
                 <Result
                   key={forecast.crag.id}
