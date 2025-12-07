@@ -17,7 +17,7 @@ export default function Home() {
           text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-500 
           dark:from-blue-400 dark:to-cyan-300 
           drop-shadow-sm 
-          pb-1
+          pb-2
         ">
           CragForecast
         </h1>
