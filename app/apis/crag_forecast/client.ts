@@ -8,7 +8,9 @@ import type {
 } from "./types";
 import { wmoToDescription } from "./wmo";
 
-const API_BASE_URL = "http://localhost:4000";
+// Use the domain to determine the API base URL
+const domain = window.location.hostname;
+const API_BASE_URL = domain === "localhost" ? "http://localhost:4000" : "https://api.cragforecast.com";
 
 type ForecastsOrError = Forecast[] | APIFailure;
 
