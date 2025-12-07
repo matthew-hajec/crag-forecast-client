@@ -12,7 +12,15 @@ export default function Accordian(props: AccordianProps) {
   return (
     <div className={`border border-gray-300 dark:border-gray-700 rounded-md ${props.additionalClasses ?? ""}`}>
       <button
-        className="w-full flex justify-between items-center px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-t-md focus:outline-none"
+        className="
+          cursor-pointer
+          w-full flex justify-between items-center 
+          px-4 py-2 
+          bg-gray-100 dark:bg-gray-800 
+          hover:bg-gray-200 dark:hover:bg-gray-700 
+          rounded-t-md 
+          focus:outline-none
+        "
         onClick={() => setIsOpen(!isOpen)}
       >
         {props.title}
@@ -35,8 +43,8 @@ export default function Accordian(props: AccordianProps) {
       </button>
       <div
         className={`grid transition-all duration-300 ease-in-out ${isOpen
-            ? "grid-rows-[1fr] opacity-100"
-            : "grid-rows-[0fr] opacity-0"
+          ? "grid-rows-[1fr] opacity-100"
+          : "grid-rows-[0fr] opacity-0"
           }`}
       >
         <div className="overflow-hidden">
