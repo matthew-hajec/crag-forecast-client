@@ -143,7 +143,7 @@ export default function Search({
           <button
             onClick={handleGetLocation}
             disabled={isGettingLocation}
-            className="w-full inline-flex items-center justify-center px-3 py-2 border border-indigo-300 dark:border-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 disabled:bg-indigo-25 dark:disabled:bg-indigo-900/20 disabled:cursor-not-allowed text-indigo-700 dark:text-indigo-300 font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-offset-gray-900"
+            className="cursor-pointer w-full inline-flex items-center justify-center px-3 py-2 border border-indigo-300 dark:border-indigo-600 bg-indigo-50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 disabled:bg-indigo-25 dark:disabled:bg-indigo-900/20 disabled:cursor-not-allowed text-indigo-700 dark:text-indigo-300 font-medium rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:focus:ring-offset-gray-900"
           >
             {isGettingLocation ? (
               <>
@@ -264,7 +264,8 @@ export default function Search({
         <button
           onClick={handleSearch}
           disabled={!latitude.trim() || !longitude.trim()}
-          className="
+          className={`
+            cursor-pointer
             w-full py-2 px-4 
             text-white font-medium text-lg
             bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 
@@ -272,7 +273,7 @@ export default function Search({
             rounded-md 
             transition-colors duration-200 
             focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900
-          "
+          `}
         >
           Search Climbing Areas
         </button>
