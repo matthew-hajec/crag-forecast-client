@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { getForecastsByLocation } from "~/apis/crag_forecast/client";
 import Result from "~/features/Result";
-import type { SuccessForecastResponse } from "~/apis/crag_forecast/types";
+import type { Forecast } from "~/apis/crag_forecast/types";
 import ResultWireframe from "~/features/ResultWireframe";
 import Toggle from "~/components/Toggle";
 
@@ -16,7 +16,7 @@ export default function Results() {
   const maxPage = 3;
 
   const [page, setPage] = useState(1);
-  const [forecasts, setForecasts] = useState<SuccessForecastResponse | null>(
+  const [forecasts, setForecasts] = useState<Forecast[] | null>(
     null,
   );
   const [error, setError] = useState<string | null>(null);
@@ -111,19 +111,19 @@ export default function Results() {
               New search
             </Link>
             <div>
-            <Toggle
-              className="mr-4"
-              enabled={isCelsius}
-              rightOption="Use Celsius"
-              rightColor="text-gray-500 dark:text-slate-400"
-              onToggle={(enabled) => setIsCelsius(enabled)}
-            />
-            <Toggle
-              enabled={isMetric}
-              rightOption="Use Metric"
-              rightColor="text-gray-500 dark:text-slate-400"
-              onToggle={(enabled) => setIsMetric(enabled)}
-            />
+              <Toggle
+                className="mr-4"
+                enabled={isCelsius}
+                rightOption="Use Celsius"
+                rightColor="text-gray-500 dark:text-slate-400"
+                onToggle={(enabled) => setIsCelsius(enabled)}
+              />
+              <Toggle
+                enabled={isMetric}
+                rightOption="Use Metric"
+                rightColor="text-gray-500 dark:text-slate-400"
+                onToggle={(enabled) => setIsMetric(enabled)}
+              />
             </div>
           </div>
           <div>
@@ -195,7 +195,7 @@ export default function Results() {
                     })
                   }
                   disabled={isLoadingMore}
-                  className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-800 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-400 hover:text-blue-600 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:text-slate-100 dark:hover:border-blue-500"
+                  className="cursor-pointer inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-800 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-400 hover:text-blue-600 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:text-slate-100 dark:hover:border-blue-500"
                 >
                   {isLoadingMore ? "Loading..." : "Load more"}
                 </button>
