@@ -1,10 +1,7 @@
 import type {
-  Weather,
-  Crag,
   Forecast,
   APISuccess,
   APIFailure,
-  APIResponse
 } from "./types";
 import { wmoToDescription } from "./wmo";
 
@@ -45,6 +42,8 @@ export async function getForecastsByLocation(
   const data: APISuccess = await response.json();
 
   const forecasts = apiResponseToForecasts(data);
+
+  console.log(forecasts)
 
   return forecasts;
 }
