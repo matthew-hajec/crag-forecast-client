@@ -38,6 +38,12 @@ export default function Result({ forecast, isCelsius, isMetric, orginLatitude, o
           <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
             📍 {crag.latitude.toFixed(3)}°, {crag.longitude.toFixed(3)}° ({formatDistance(distance, isMetric, true)} away)
           </p>
+          <div className="flex flex-row justify-around text-gray-400 mt-3 text-sm">
+            <p>Sport: {crag.count_sport}</p>
+            <p>Trad: {crag.count_trad}</p>
+            <p>Top Rope: {crag.count_top_rope}</p>
+            <p>Boulder: {crag.count_boulder}</p>
+          </div>
         </a>
       </div>
 
