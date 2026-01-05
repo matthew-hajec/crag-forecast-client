@@ -15,6 +15,10 @@ export type Crag = {
   country: string;
   latitude: number;
   longitude: number;
+  count_trad: number;
+  count_sport: number;
+  count_top_rope: number;
+  count_boulder: number;
 };
 
 // Expect 5 days of forecast data, 1 previous day, 1 current day, and 3 future days
